@@ -32,19 +32,17 @@ public class LinkedListNode {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
         LinkedListNode that = (LinkedListNode) o;
-        return val == that.val &&
-                Objects.equals(next, that.next);
+        return val == that.val && Objects.equals(next, that.next);
     }
 
     @Override
     public String toString() {
-        return "LinkedListNode{" +
-                "val=" + val +
-                ", next=" + next +
-                '}';
+        return "LinkedListNode{" + "val=" + val + ", next=" + next + '}';
     }
 
     @Override

@@ -24,5 +24,9 @@ public class _02_02_ReturnKthToLastTest {
         assertEquals(2, s.kthToLast(LinkedListNode.of(1, 2, 3), 1).val);
     }
 
+    @Test
+    public void withMultVal() {
+        assertEquals(5, s.kthToLast(LinkedListNode.of(1, 3, 5, 7, 9), 2).val);
+    }
 
 }

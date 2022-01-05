@@ -12,23 +12,33 @@ import java.util.HashSet;
  * <p>
  * EXAMPLE Input: A -> B -> C -> D -> E -> C[the same C as earlier] Output: C
  */
+
 class _02_08_LoopDetection {
 
     LinkedListNode detect(LinkedListNode head) {
         if (head == null) {
             return null;
         }
-        LinkedListNode slow = head, fast = head.next;
-        while (slow != null && fast != null) {
+        LinkedListNode slow = head, fast = head;
+        while (slow != null && fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
             if (slow.equals(fast)) {
-                return slow;
-            } else {
-                slow = slow.next;
-                fast = fast.next.next;
+                break;
             }
         }
+        if (slow == null || slow.next == null || fast == null || fast.next == null) {
+            return null;
+        }
 
-        return null;
+        slow = head;
+        while (slow != fast) {
+            slow = slow.next;
+            fast = fast.next;
+        }
+
+        return slow;
+
     }
 
     public static void main(String[] args) {

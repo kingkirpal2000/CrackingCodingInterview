@@ -21,7 +21,7 @@ public class _02_04_PartitionTest {
     @Test
     public void withSortedList_AndOutOfListX() {
         assertEquals(LinkedListNode.of(3, 2, 1), s.partition(LinkedListNode.of(1, 2, 3), 4));
-    }
+    } // technically right order misplaced
 
     @Test
     public void withSortedList_AndOutOfListX_Smaller() {
@@ -31,11 +31,11 @@ public class _02_04_PartitionTest {
     @Test
     public void withUnSortedList() {
         assertEquals(LinkedListNode.of(1, 2, 4, 3, 5), s.partition(LinkedListNode.of(4, 3, 2, 5, 1), 3));
-    }
+    }// technically right order misplaced
 
     @Test
     public void withUnSortedList_AndOutOfScopeX() {
         assertEquals(LinkedListNode.of(1, 2, 4, 3, 6), s.partition(LinkedListNode.of(3, 4, 2, 6, 1), 5));
-    }
+    }// technically right order misplaced
 
 }

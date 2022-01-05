@@ -1,5 +1,7 @@
 package linkedlist;
 
+import datastructures.LinkedList;
+
 /**
  * Partition: Write code to partition a linked list around a value x, such that
  * all nodes less than x come before all nodes greater than or equal to x. If x
@@ -12,35 +14,47 @@ package linkedlist;
 class _02_04_Partition {
 
     LinkedListNode partition(LinkedListNode head, int x) {
-        LinkedListNode leftHead = null, leftCurr = null;
-        LinkedListNode rightHead = null, rightCurr = null;
-        while (head != null) {
-            if (head.val < x) {
-                if (leftHead == null) {
-                    leftHead = new LinkedListNode(head.val);
-                    leftCurr = leftHead;
+        if (head == LinkedListNode.empty()) {
+            return LinkedListNode.empty();
+        }
+        LinkedListNode left = null, right = null, leftCurr = null, rightCurr = null, curr = head;
+
+        while (curr != null) {
+            if (curr.val < x) {
+                System.out.println("debug1");
+                if (left == null) {
+                    left = new LinkedListNode(curr.val);
+                    leftCurr = left;
                 } else {
-                    leftCurr.next = new LinkedListNode(head.val);
+                    leftCurr.next = new LinkedListNode(curr.val);
                     leftCurr = leftCurr.next;
                 }
+                curr = curr.next;
             } else {
-                if (rightHead == null) {
-                    rightHead = new LinkedListNode(head.val);
-                    rightCurr = rightHead;
+                System.out.println("debug2");
+                if (right == null) {
+                    right = new LinkedListNode(curr.val);
+                    rightCurr = right;
                 } else {
-                    rightCurr.next = new LinkedListNode(head.val);
+                    rightCurr.next = new LinkedListNode(curr.val);
                     rightCurr = rightCurr.next;
                 }
+                curr = curr.next;
             }
-            head = head.next;
         }
-        leftCurr.next = rightHead;
-        return leftHead;
+
+        if (leftCurr != null) {
+            leftCurr.next = right;
+            return left;
+        } else {
+            return right;
+        }
+
     }
 
     public static void main(String[] args) {
         _02_04_Partition obj = new _02_04_Partition();
-        LinkedListNode answer = obj.partition(LinkedListNode.of(8, 7, 3, 6, 5, 2), 5);
+        LinkedListNode answer = obj.partition(LinkedListNode.of(3, 4, 2, 6, 1), 5);
         System.out.println(answer.toString());
     }
 }

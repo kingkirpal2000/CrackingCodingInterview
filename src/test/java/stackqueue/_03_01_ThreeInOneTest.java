@@ -17,7 +17,6 @@ public class _03_01_ThreeInOneTest {
         assertEquals(2, s.pop(2));
     }
 
-
     @Test
     public void withStackSize2() {
         _03_01_ThreeInOne s = new _03_01_ThreeInOne(2);
@@ -26,11 +25,9 @@ public class _03_01_ThreeInOneTest {
         s.push(1, 2);
         s.push(2, 3);
         s.push(2, 4);
-        s.push(2, 5);
         assertEquals(6, s.pop(0));
         assertEquals(2, s.pop(1));
         assertEquals(1, s.pop(1));
-        assertEquals(5, s.pop(2));
         assertEquals(4, s.pop(2));
         assertEquals(3, s.pop(2));
     }

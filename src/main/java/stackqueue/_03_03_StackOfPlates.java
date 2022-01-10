@@ -27,15 +27,29 @@ class _03_03_StackOfPlates {
 
     }
 
+    void printStacks() {
+        for (int i = 0; i < stacks.size(); i++) {
+            stackNode<Integer> t = stacks.get(i);
+            System.out.print("Stack " + i + ": ");
+            while (t != null) {
+                System.out.print(t.value + "; ");
+                t = t.next;
+
+            }
+            System.out.println("");
+        }
+    }
+
     void push(int val) {
+        int nextCounter = stacks.size() - 1;
         stackNode<Integer> t = new stackNode<Integer>(val);
 
         if (currentStackCounter != 0) {
-            t.next = stacks.get(0);
-            stacks.remove(0);
+            t.next = stacks.get(nextCounter);
+            stacks.remove(nextCounter);
         }
 
-        stacks.add(0, t);
+        stacks.add(t);
         currentStackCounter++;
         totalStackSize++;
         if (currentStackCounter == this.threshold) {
@@ -49,42 +63,52 @@ class _03_03_StackOfPlates {
             throw new EmptyStackException();
         }
 
-        stackNode<Integer> t = stacks.get(0);
+        int lastCounter = stacks.size() - 1;
+        stackNode<Integer> t = stacks.get(lastCounter);
         if (t.next == null) {
-            System.out.println("Debgu1" + stacks.size());
-            stacks.remove(0);
+            stacks.remove(lastCounter);
         } else {
-            System.out.println("ddbdg");
-            stacks.set(0, stacks.get(0).next);
+            stacks.set(lastCounter, stacks.get(lastCounter).next);
         }
 
         currentStackCounter--;
         return t.value;
+    }
 
+    stackNode<Integer> popBottom(int stackNum) {
+        stackNode<Integer> t = stacks.get(stackNum);
+        while (t.next != null) {
+            t = t.next;
+        }
+
+        stackNode<Integer> x = stacks.get(stackNum);
+        if (x.next != null) {
+            while (x.next.next != null) {
+                x = x.next;
+            }
+        }
+
+        x.next = null;
+        return t;
     }
 
     int popAt(int stackNum) {
-        if (stackNum >= stacks.size()) {
-            throw new EmptyStackException();
+        stackNode<Integer> t = stacks.get(stackNum);
+
+        stacks.set(stackNum, stacks.get(stackNum).next);
+        for (int i = stackNum + 1; i < stacks.size(); i++) {
+            stackNode<Integer> btm = popBottom(i);
+            btm.next = stacks.get(i - 1);
+            stacks.set(i - 1, btm);
+        }
+        currentStackCounter--;
+
+        if (currentStackCounter < 0) {
+            currentStackCounter = threshold + currentStackCounter;
         }
 
-        stackNode<Integer> t = stacks.get(stackNum);
-        if (t.next == null) {
-            stacks.remove(stackNum);
-        } else {
-            if (stackNum != 0) {
-                stackNode<Integer> s = stacks.get(stackNum - 1);
-                while (s.next != null) {
-                    s = s.next;
-                }
-                stacks.set(stackNum, s);
-                s = stacks.get(stackNum - 1);
-                while (s.next.next != null) {
-                    s = s.next;
-                }
-                s.next = null;
-            }
-
+        if (currentStackCounter == 0) {
+            stacks.remove(stacks.size() - 1);
         }
         return t.value;
     }
@@ -98,11 +122,18 @@ class _03_03_StackOfPlates {
         stack.push(6);
         stack.push(7);
         stack.push(8);
-        System.out.println(stack.popAt(1));
-        System.out.println(stack.popAt(1));
-        System.out.println(stack.pop());
-        System.out.println(stack.popAt(0));
+        stack.printStacks();
 
+        System.out.println(stack.popAt(1));
+        stack.printStacks();
+        System.out.println(stack.currentStackCounter);
+
+        System.out.println(stack.popAt(1));
+        stack.printStacks();
+        System.out.println(stack.currentStackCounter);
+
+        // System.out.println(stack.pop());
+        // System.out.println(stack.popAt(0));
     }
 
 }

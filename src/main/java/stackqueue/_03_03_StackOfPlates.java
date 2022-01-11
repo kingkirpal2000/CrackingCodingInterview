@@ -17,12 +17,10 @@ class _03_03_StackOfPlates {
     private ArrayList<stackNode<Integer>> stacks;
     private int threshold;
     private int currentStackCounter;
-    private int totalStackSize;
 
     _03_03_StackOfPlates(int threshold) {
         this.threshold = threshold;
         this.currentStackCounter = 0;
-        this.totalStackSize = 0;
         this.stacks = new ArrayList<stackNode<Integer>>();
 
     }
@@ -51,7 +49,6 @@ class _03_03_StackOfPlates {
 
         stacks.add(t);
         currentStackCounter++;
-        totalStackSize++;
         if (currentStackCounter == this.threshold) {
             currentStackCounter = 0;
         }
